@@ -1,8 +1,8 @@
 const axios = require("axios");
 
-const fetchRepoInfo = async (repoNames) => {
+const fetchRepoInfo = async (repoName) => {
   try {
-    const response = await axios.get(`https://api.github.com/repos/${repoNames}`, {
+    const response = await axios.get(`https://api.github.com/repos/${repoName}`, {
       headers: {
         Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
         Accept: "application/json", 

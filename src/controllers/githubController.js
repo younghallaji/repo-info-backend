@@ -1,17 +1,17 @@
 const { fetchRepoInfo } = require("../services/githubService");
 
 const getRepoInfo = async (req, res) => {
-  const { repoNames } = req.query;
+  const { repoName } = req.query;
   
-  if (!repoNames) {
+  if (!repoName) {
     return res.status(400).json({status:false, message: "Repository name is required" });
   }
 
-  if (repoNames === "test/error") {
+  if (repoName === "test/error") {
     return res.status(500).json({ status: false, message: "Manual error triggered" });
   }
 
-  const repoList = repoNames.split(",").map((repo) => repo.trim()); 
+  const repoList = repoName.split(",").map((repo) => repo.trim()); 
   const repoDetails = []; 
 
   try {
