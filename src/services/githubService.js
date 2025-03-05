@@ -1,6 +1,6 @@
-const axios = require("axios");
+import axios from "axios";
 
-const fetchRepoInfo = async (repoName) => {
+export const fetchRepoInfo = async (repoName) => {
   try {
     const response = await axios.get(`https://api.github.com/repos/${repoName}`, {
       headers: {
@@ -22,4 +22,4 @@ const fetchRepoInfo = async (repoName) => {
   }
 };
 
-module.exports = { fetchRepoInfo };
+

@@ -1,5 +1,5 @@
-const express = require("express");
-const { getRepoInfo } = require("../controllers/githubController");
+import express from "express";
+import { getRepoInfo } from "../controllers/githubController.js";
 
 const router = express.Router();
 
@@ -42,4 +42,4 @@ const router = express.Router();
  */
 router.get("/repo_info", getRepoInfo);
 
-module.exports = router;
+export default router;

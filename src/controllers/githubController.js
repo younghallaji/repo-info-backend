@@ -1,18 +1,18 @@
-const { fetchRepoInfo } = require("../services/githubService");
+import { fetchRepoInfo } from "../services/githubService.js";
 
-const getRepoInfo = async (req, res) => {
+export const getRepoInfo = async (req, res) => {
   const { repoName } = req.query;
-  
+
   if (!repoName) {
-    return res.status(400).json({status:false, message: "Repository name is required" });
+    return res.status(400).json({ status: false, message: "Repository name is required" });
   }
 
   if (repoName === "test/error") {
     return res.status(500).json({ status: false, message: "Manual error triggered" });
   }
 
-  const repoList = repoName.split(",").map((repo) => repo.trim()); 
-  const repoDetails = []; 
+  const repoList = repoName.split(",").map((repo) => repo.trim());
+  const repoDetails = [];
 
   try {
     for (const repo of repoList) {
@@ -32,5 +32,3 @@ const getRepoInfo = async (req, res) => {
     });
   }
 };
-
-module.exports = { getRepoInfo };

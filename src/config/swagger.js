@@ -1,4 +1,4 @@
-const swaggerJSDoc = require("swagger-jsdoc");
+import swaggerJSDoc from "swagger-jsdoc";
 
 const swaggerDefinition = {
   openapi: "3.0.0",
@@ -12,6 +12,10 @@ const swaggerDefinition = {
       url: "http://localhost:5000",
       description: "Local development server",
     },
+    {
+      url: "https://repo-info-backend.onrender.com/",
+      description: "Production development server",
+    },
   ],
 };
 
@@ -22,4 +26,4 @@ const options = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-module.exports = swaggerSpec;
+export default swaggerSpec;

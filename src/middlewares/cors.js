@@ -1,4 +1,4 @@
-const cors = require("cors");
+import cors from "cors";
 
 const corsOptions = {
   origin: ["http://localhost:3000", "https://repo-info.vercel.app"], 
@@ -7,4 +7,4 @@ const corsOptions = {
   credentials: true, 
 };
 
-module.exports = cors(corsOptions);
+export default cors(corsOptions);

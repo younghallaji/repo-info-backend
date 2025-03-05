@@ -1,11 +1,11 @@
-const express = require("express");
-const cors = require("./middlewares/cors"); 
-const rateLimiter = require("./middlewares/rateLimiter"); 
-const errorHandler = require("./middlewares/errorHandler");
-require("dotenv").config();
-const swaggerUi = require("swagger-ui-express");
-const swaggerSpec = require("./config/swagger");
-const githubRoutes = require("./routes/githubRoutes");
+import express from "express";
+import cors from "./middlewares/cors.js"; 
+import rateLimiter from "./middlewares/rateLimiter.js"; 
+import errorHandler from "./middlewares/errorHandler.js";
+import "dotenv/config";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./config/swagger.js";
+import githubRoutes from "./routes/githubRoutes.js";
 
 const app = express();
 
@@ -17,11 +17,10 @@ app.use(express.json());
 // Swagger Documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-
 // Routes
 app.use("/v1/api/github", githubRoutes);
 
 // Error Handling Middleware 
 app.use(errorHandler);
 
-module.exports = app;
+export default app;
