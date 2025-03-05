@@ -1,4 +1,4 @@
-import { fetchRepoInfo } from "../services/githubService.js";
+import { fetchRepoInfo, fetchAllRepos } from "../services/githubService.js";
 
 export const getRepoInfo = async (req, res) => {
   const { repoName } = req.query;
@@ -12,16 +12,20 @@ export const getRepoInfo = async (req, res) => {
   }
 
   const repoList = repoName.split(",").map((repo) => repo.trim());
-  const repoDetails = [];
+  let repoDetails = [];
 
   try {
-    for (const repo of repoList) {
-      try {
-        const repoData = await fetchRepoInfo(repo);
-        repoDetails.push({ name: repo, data: repoData });
-      } catch (error) {
-        repoDetails.push({ name: repo, error: "Repository not found" });
+    if (repoName.includes("/")) {
+      for (const repo of repoList) {
+        try {
+          const repoData = await fetchRepoInfo(repo);
+          repoDetails.push({ name: repo, data: repoData });
+        } catch (error) {
+          repoDetails.push({ name: repo, error: "Repository not found" });
+        }
       }
+    }else {
+      repoDetails = await fetchAllRepos(repoName);
     }
     return res.status(200).json({ status: true, data: repoDetails });
   } catch (error) {

@@ -22,4 +22,31 @@ export const fetchRepoInfo = async (repoName) => {
   }
 };
 
+// Fetch all repos for an owner/organization
+export const fetchAllRepos = async (owner) => {
+  try {
+    const response = await axios.get(`https://api.github.com/users/${owner}/repos`, {
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+        Accept: "application/json",
+      },
+    });
 
+    if (!response.data || !Array.isArray(response.data) || response.data.length === 0) {
+      throw new Error(`No repositories found for user/organization '${owner}'`);
+    }
+
+    const formattedRepos = response.data.map((repo) => ({
+      name: `${owner}/${repo.name}`,
+      data: {
+        name: repo.name || "Unknown",
+        description: repo.description || "No description available",
+        stars: repo.stargazers_count || 0,
+      },
+    }));
+
+    return formattedRepos;
+  } catch (error) {
+    throw new Error(`Failed to fetch repositories for '${owner}'`);
+  }
+};
